@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todolist page</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <center>
+    <h1 style="color:red;background-color: yellow;">My To Do List</h1>
+    <form action="/addTodoItem/" method = "post">
+        {% csrf_token %}
+        <input type="text" name="content">
+        <input type="submit" value="Add Todo Item" class="btn btn-outline-primary btn-sm">
+    </form> 
+    </center>
+    <ol>
+        {% for i in all_items %} 
+        <li>
+            {{i.content}}
+            <form action="/deleteTodoItem/{{i.id}}/" method = "post">
+                {% csrf_token %}
+                <input type="submit" value="Delete" class="btn btn-outline-danger btn-sm">
+            </form>  
+        </li>
+        {% endfor %}
+    </ol> 
+</body>
+</html>
